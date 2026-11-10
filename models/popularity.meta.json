@@ -1,0 +1,12 @@
+{
+  "model": "popularity",
+  "path": "models/popularity.pkl",
+  "mlflow_run_id": "94a767bdc5904887ac30f909e00fe13a",
+  "params": {
+    "window_days": null,
+    "ranking_signal": "item_rating_count",
+    "rating_signal": "item_bayesian_avg"
+  },
+  "diagnostics": {},
+  "fit_seconds": 0.02
+}

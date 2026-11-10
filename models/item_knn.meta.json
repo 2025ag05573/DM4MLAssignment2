@@ -1,0 +1,12 @@
+{
+  "model": "item_knn",
+  "path": "models/item_knn.pkl",
+  "mlflow_run_id": "1e855921e15740c68cdf1c1d72321634",
+  "params": {
+    "shrink": 200.0,
+    "neighbours": 500,
+    "similarity": "shrunk cosine (binary)"
+  },
+  "diagnostics": {},
+  "fit_seconds": 3.72
+}

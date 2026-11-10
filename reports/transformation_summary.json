@@ -1,0 +1,42 @@
+{
+  "tune": {
+    "shape": [
+      6040,
+      3883
+    ],
+    "nnz": 800164,
+    "density": 0.03411730194275267
+  },
+  "final": {
+    "shape": [
+      6040,
+      3883
+    ],
+    "nnz": 900188,
+    "density": 0.03838211391820007
+  },
+  "user_activity_summary_rows": 6011,
+  "item_popularity_rows": 3678,
+  "top5_items": [
+    {
+      "title": "American Beauty",
+      "n_ratings": 3275
+    },
+    {
+      "title": "Star Wars: Episode V - The Empire Strikes Back",
+      "n_ratings": 2832
+    },
+    {
+      "title": "Star Wars: Episode IV - A New Hope",
+      "n_ratings": 2823
+    },
+    {
+      "title": "Star Wars: Episode VI - Return of the Jedi",
+      "n_ratings": 2756
+    },
+    {
+      "title": "Jurassic Park",
+      "n_ratings": 2542
+    }
+  ]
+}

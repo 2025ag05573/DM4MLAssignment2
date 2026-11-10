@@ -1,0 +1,42 @@
+flowchart TB
+    ML["MovieLens 1M archive<br/>users.dat · movies.dat · ratings.dat"]
+
+    subgraph PF["Prefect flow · dags/recommendation_flow.py — task dependencies · retries · weekly schedule"]
+        direction TB
+        BR["<b>1 · Ingestion</b><br/>bronze Parquet (raw strings + lineage)<br/>manifest: archive MD5 · row counts<br/>pinned checksums of the source files"]
+        V["<b>2 · Validation</b> (quality gate)<br/>Pandera contract + custom checks<br/>41 checks · stop if > 1% quarantined"]
+        ERR[("data/errors<br/>quarantined rows + warnings<br/>(key-only list in reports/)")]
+        CL["<b>3 · Preparation</b><br/>dedupe · impute · standardise formats<br/>global time split 80 / 10 / 10"]
+        DD["<b>4 · Transformation</b><br/>user activity · item popularity<br/>genre summary · user × item matrix"]
+        SNAP[("<b>5 · Feature store</b><br/>registry of 32 features<br/>point-in-time snapshots: tune · final · serving")]
+        TU["<b>6 · Training</b><br/>grid search on validation window"]
+        M1["Popularity<br/>(baseline)"]
+        M2["Explicit MF<br/>(rating predictor)"]
+        M3["Item-kNN CF"]
+        M4["Implicit ALS"]
+        M5["Hybrid<br/>ALS + genre match + popularity"]
+        E["<b>7 · Evaluation</b> on test window<br/>P / R / NDCG / HR @5,10 · coverage<br/>diversity · novelty · RMSE / MAE<br/>bootstrap CIs · user segments"]
+        INF["<b>Serving</b><br/>batch + on-demand top-K<br/>popularity fallback for new users"]
+    end
+
+    MLF[("MLflow<br/>params · metrics · artifacts")]
+    REP["reports/<br/>validation · feature catalog · model comparison"]
+
+    ML --> BR --> V
+    V -- "error rows" --> ERR
+    V -- "valid rows" --> CL --> DD --> SNAP --> TU
+    TU --> M1 & M2 & M3 & M4
+    M4 --> M5
+    SNAP -. "features" .-> M5
+    M1 & M2 & M3 & M4 & M5 --> E
+    M5 --> INF
+    SNAP -. "serving snapshot" .-> INF
+    TU & E -.-> MLF
+    V & SNAP & E -.-> REP
+
+    classDef store fill:#eef4fc,stroke:#2a78d6,color:#0b0b0b
+    classDef gate fill:#fff6e0,stroke:#c98500,color:#0b0b0b
+    classDef model fill:#eaf7f1,stroke:#1baf7a,color:#0b0b0b
+    class ERR,SNAP,MLF store
+    class V gate
+    class M1,M2,M3,M4,M5 model

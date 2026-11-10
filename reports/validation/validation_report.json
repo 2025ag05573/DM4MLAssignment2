@@ -1,0 +1,437 @@
+{
+  "summary": {
+    "users": {
+      "rows_in": 6040,
+      "rows_valid": 6040,
+      "rows_quarantined": 0,
+      "error_rate": 0.0,
+      "rows_with_warnings": 81
+    },
+    "movies": {
+      "rows_in": 3883,
+      "rows_valid": 3883,
+      "rows_quarantined": 0,
+      "error_rate": 0.0,
+      "rows_with_warnings": 0
+    },
+    "ratings": {
+      "rows_in": 1000209,
+      "rows_valid": 1000209,
+      "rows_quarantined": 0,
+      "error_rate": 0.0,
+      "rows_with_warnings": 0
+    }
+  },
+  "checks": [
+    {
+      "table": "users",
+      "check": "bad_dtype",
+      "column": "user_id",
+      "severity": "error",
+      "description": "Value cannot be parsed to the contract type",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "users",
+      "check": "missing_key",
+      "column": "user_id",
+      "severity": "error",
+      "description": "Identifier / rating / timestamp is null",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "users",
+      "check": "missing_attribute",
+      "column": "gender",
+      "severity": "warning",
+      "description": "Non-key attribute is null (imputed in preparation)",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "users",
+      "check": "bad_dtype",
+      "column": "age",
+      "severity": "error",
+      "description": "Value cannot be parsed to the contract type",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "users",
+      "check": "missing_attribute",
+      "column": "age",
+      "severity": "warning",
+      "description": "Non-key attribute is null (imputed in preparation)",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "users",
+      "check": "bad_dtype",
+      "column": "occupation",
+      "severity": "error",
+      "description": "Value cannot be parsed to the contract type",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "users",
+      "check": "missing_attribute",
+      "column": "occupation",
+      "severity": "warning",
+      "description": "Non-key attribute is null (imputed in preparation)",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "users",
+      "check": "missing_attribute",
+      "column": "zip_code",
+      "severity": "warning",
+      "description": "Non-key attribute is null (imputed in preparation)",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "users",
+      "check": "id_positive",
+      "column": "user_id",
+      "severity": "error",
+      "description": "Identifier must be a positive integer",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "users",
+      "check": "gender_valid",
+      "column": "gender",
+      "severity": "warning",
+      "description": "Gender must be M or F (else set to 'unknown')",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "users",
+      "check": "age_code_valid",
+      "column": "age",
+      "severity": "warning",
+      "description": "Age must be one of the documented age-bucket codes",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "users",
+      "check": "occupation_valid",
+      "column": "occupation",
+      "severity": "warning",
+      "description": "Occupation code must be within 0-20",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "users",
+      "check": "zip_format",
+      "column": "zip_code",
+      "severity": "warning",
+      "description": "ZIP code is not 5 digits (ZIP+4 truncated, others set unknown)",
+      "failed_rows": 81,
+      "status": "WARN",
+      "examples": "98107-2117, 37919-4204, 55337-4056"
+    },
+    {
+      "table": "users",
+      "check": "duplicate_primary_key",
+      "column": "user_id",
+      "severity": "error",
+      "description": "Primary key appears more than once (later copies quarantined)",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "users",
+      "check": "row_volume",
+      "column": "*",
+      "severity": "warning",
+      "description": "Table row count outside the expected range",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": "6040 rows (expected 5000-10000)"
+    },
+    {
+      "table": "movies",
+      "check": "bad_dtype",
+      "column": "movie_id",
+      "severity": "error",
+      "description": "Value cannot be parsed to the contract type",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "movies",
+      "check": "missing_key",
+      "column": "movie_id",
+      "severity": "error",
+      "description": "Identifier / rating / timestamp is null",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "movies",
+      "check": "missing_attribute",
+      "column": "title",
+      "severity": "warning",
+      "description": "Non-key attribute is null (imputed in preparation)",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "movies",
+      "check": "missing_attribute",
+      "column": "genres",
+      "severity": "warning",
+      "description": "Non-key attribute is null (imputed in preparation)",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "movies",
+      "check": "id_positive",
+      "column": "movie_id",
+      "severity": "error",
+      "description": "Identifier must be a positive integer",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "movies",
+      "check": "title_has_year",
+      "column": "title",
+      "severity": "warning",
+      "description": "Title should end with the release year '(YYYY)'",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "movies",
+      "check": "duplicate_primary_key",
+      "column": "movie_id",
+      "severity": "error",
+      "description": "Primary key appears more than once (later copies quarantined)",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "movies",
+      "check": "genre_vocabulary",
+      "column": "genres",
+      "severity": "warning",
+      "description": "Genre token outside the documented 18-genre vocabulary",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "movies",
+      "check": "row_volume",
+      "column": "*",
+      "severity": "warning",
+      "description": "Table row count outside the expected range",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": "3883 rows (expected 3000-5000)"
+    },
+    {
+      "table": "ratings",
+      "check": "bad_dtype",
+      "column": "user_id",
+      "severity": "error",
+      "description": "Value cannot be parsed to the contract type",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "ratings",
+      "check": "missing_key",
+      "column": "user_id",
+      "severity": "error",
+      "description": "Identifier / rating / timestamp is null",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "ratings",
+      "check": "bad_dtype",
+      "column": "movie_id",
+      "severity": "error",
+      "description": "Value cannot be parsed to the contract type",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "ratings",
+      "check": "missing_key",
+      "column": "movie_id",
+      "severity": "error",
+      "description": "Identifier / rating / timestamp is null",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "ratings",
+      "check": "bad_dtype",
+      "column": "rating",
+      "severity": "error",
+      "description": "Value cannot be parsed to the contract type",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "ratings",
+      "check": "missing_key",
+      "column": "rating",
+      "severity": "error",
+      "description": "Identifier / rating / timestamp is null",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "ratings",
+      "check": "bad_dtype",
+      "column": "timestamp",
+      "severity": "error",
+      "description": "Value cannot be parsed to the contract type",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "ratings",
+      "check": "missing_key",
+      "column": "timestamp",
+      "severity": "error",
+      "description": "Identifier / rating / timestamp is null",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "ratings",
+      "check": "id_positive",
+      "column": "user_id",
+      "severity": "error",
+      "description": "Identifier must be a positive integer",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "ratings",
+      "check": "id_positive",
+      "column": "movie_id",
+      "severity": "error",
+      "description": "Identifier must be a positive integer",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "ratings",
+      "check": "rating_in_scale",
+      "column": "rating",
+      "severity": "error",
+      "description": "Rating must be one of the allowed values 1-5",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "ratings",
+      "check": "timestamp_in_range",
+      "column": "timestamp",
+      "severity": "error",
+      "description": "Timestamp must be after MovieLens launch and not in the future",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "ratings",
+      "check": "duplicate_interaction",
+      "column": "user_id+movie_id",
+      "severity": "warning",
+      "description": "Same (user, movie) rated more than once (latest kept)",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "ratings",
+      "check": "orphan_user",
+      "column": "user_id",
+      "severity": "error",
+      "description": "Rating references a user_id that is not in users",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "ratings",
+      "check": "orphan_movie",
+      "column": "movie_id",
+      "severity": "error",
+      "description": "Rating references a movie_id that is not in movies",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "ratings",
+      "check": "rated_before_release",
+      "column": "timestamp",
+      "severity": "warning",
+      "description": "Rating timestamp precedes the movie's release year",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": ""
+    },
+    {
+      "table": "ratings",
+      "check": "row_volume",
+      "column": "*",
+      "severity": "warning",
+      "description": "Table row count outside the expected range",
+      "failed_rows": 0,
+      "status": "PASS",
+      "examples": "1000209 rows (expected 900000-1100000)"
+    }
+  ]
+}

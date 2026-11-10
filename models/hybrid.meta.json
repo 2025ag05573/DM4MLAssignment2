@@ -1,0 +1,21 @@
+{
+  "model": "hybrid",
+  "path": "models/hybrid.pkl",
+  "mlflow_run_id": "49c3b6173a4743688dab9ef5e677a3cd",
+  "params": {
+    "w_cf": 1.0,
+    "w_content": 0.4,
+    "w_pop": 0.5,
+    "feature_snapshot": "final",
+    "cf_factors": 8,
+    "cf_reg": 500.0,
+    "cf_alpha": 3.0,
+    "cf_iterations": 15,
+    "cf_seed": 42,
+    "cf_solver": "cg",
+    "cf_cg_steps": 3,
+    "cf_confidence": "1 + alpha * rating"
+  },
+  "diagnostics": {},
+  "fit_seconds": 0.03
+}

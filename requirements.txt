@@ -1,0 +1,26 @@
+# Python 3.11 - 3.13. Tested at both ends of these ranges: the minimum versions on
+# Python 3.11 (numpy 2.1, pandas 2.2.2, scipy 1.13, pyarrow 16, pandera 0.24, mlflow 3.10,
+# prefect 3.9.1) and the latest releases on Python 3.12 / 3.13.
+# No compiled ML libraries are needed: the models are implemented with NumPy/SciPy.
+# For an exact, byte-for-byte reproduction of the reference run use
+# requirements-lock.txt instead (every package pinned; Python 3.12+).
+
+# data processing & storage
+numpy>=2.1,<3
+pandas>=2.2.2,<4
+pyarrow>=16,<27
+scipy>=1.13,<2
+PyYAML>=6.0,<7
+
+# data validation
+pandera>=0.24,<1
+
+# experiment tracking
+mlflow>=3.10,<4
+
+# orchestration
+prefect>=3.9.1,<4
+
+# reporting & tests
+matplotlib>=3.8,<4
+pytest>=8,<10

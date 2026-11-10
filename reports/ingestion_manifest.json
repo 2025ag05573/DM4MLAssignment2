@@ -1,0 +1,55 @@
+{
+  "source": "local:ml-1m.zip",
+  "archive": "data/raw/ml-1m.zip",
+  "archive_md5": "9fa174101136572f2413789817c2674e",
+  "content_checksum": {
+    "status": {
+      "users": "match",
+      "movies": "match",
+      "ratings": "match"
+    },
+    "policy": "warn"
+  },
+  "ingested_at": "2026-11-08T06:56:48+00:00",
+  "tables": {
+    "users": {
+      "source_file": "data/raw/ml-1m/users.dat",
+      "file_md5": "681c0711d0d4548cd3d4718a49c2dcd8",
+      "rows": 6040,
+      "malformed_lines": 0,
+      "columns": [
+        "user_id",
+        "gender",
+        "age",
+        "occupation",
+        "zip_code"
+      ],
+      "bronze_path": "data/raw/bronze/users.parquet"
+    },
+    "movies": {
+      "source_file": "data/raw/ml-1m/movies.dat",
+      "file_md5": "ef9fd9ff8d1b33faf73e2122c371e910",
+      "rows": 3883,
+      "malformed_lines": 0,
+      "columns": [
+        "movie_id",
+        "title",
+        "genres"
+      ],
+      "bronze_path": "data/raw/bronze/movies.parquet"
+    },
+    "ratings": {
+      "source_file": "data/raw/ml-1m/ratings.dat",
+      "file_md5": "a89aa3591bc97d6d4e0c89459ff39362",
+      "rows": 1000209,
+      "malformed_lines": 0,
+      "columns": [
+        "user_id",
+        "movie_id",
+        "rating",
+        "timestamp"
+      ],
+      "bronze_path": "data/raw/bronze/ratings.parquet"
+    }
+  }
+}

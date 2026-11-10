@@ -1,0 +1,28 @@
+{
+  "popularity": {
+    "window_days": null
+  },
+  "explicit_mf": {
+    "reg_mode": "weighted",
+    "factors": 64,
+    "reg": 0.1,
+    "iterations": 15
+  },
+  "item_knn": {
+    "shrink": 200.0,
+    "neighbours": 500
+  },
+  "implicit_als": {
+    "factors": 8,
+    "reg": 500.0,
+    "alpha": 3.0,
+    "iterations": 15,
+    "solver": "cg",
+    "cg_steps": 3
+  },
+  "hybrid": {
+    "w_cf": 1.0,
+    "w_content": 0.4,
+    "w_pop": 0.5
+  }
+}

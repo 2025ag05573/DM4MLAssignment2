@@ -1,0 +1,17 @@
+{
+  "model": "explicit_mf",
+  "path": "models/explicit_mf.pkl",
+  "mlflow_run_id": "144a4048700341498f5c42dbe0135344",
+  "params": {
+    "factors": 64,
+    "reg": 0.1,
+    "reg_mode": "weighted",
+    "bias_reg": 0.1,
+    "iterations": 15,
+    "seed": 42
+  },
+  "diagnostics": {
+    "factor_term_std": 0.23993
+  },
+  "fit_seconds": 34.18
+}

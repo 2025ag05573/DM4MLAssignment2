@@ -1,0 +1,120 @@
+# ---------------------------------------------------------------------------
+# End-to-end recommendation pipeline configuration (MovieLens 1M)
+# Every stage reads its parameters from here, so a run is fully described by
+# this file + the code version + the input checksum logged in the manifest.
+# ---------------------------------------------------------------------------
+project:
+  name: dm4ml-recsys
+  seed: 42
+
+paths:
+  raw_dir: data/raw
+  processed_dir: data/processed
+  features_dir: data/features
+  errors_dir: data/errors
+  models_dir: models
+  reports_dir: reports
+
+ingestion:
+  source_url: https://files.grouplens.org/datasets/movielens/ml-1m.zip
+  # Use an already-downloaded zip instead of the URL (also settable with the
+  # ML1M_ZIP environment variable). Leave null to download.
+  local_zip: null
+  # Reproducibility pin: md5 of each extracted source file. Pinned on the .dat files,
+  # not the zip, so a re-packed archive with the same content still matches (the
+  # archive checksum is recorded in the manifest). null = record only.
+  expected_file_md5:
+    users: 681c0711d0d4548cd3d4718a49c2dcd8
+    movies: ef9fd9ff8d1b33faf73e2122c371e910
+    ratings: a89aa3591bc97d6d4e0c89459ff39362
+  checksum_policy: warn      # warn = log a mismatch and continue | fail = stop the run
+  encoding: latin-1          # MovieLens .dat files are ISO-8859-1
+  download_timeout_s: 120
+  download_retries: 3
+
+validation:
+  # Quality gate: the pipeline fails if more than this share of any table
+  # has to be quarantined (error-severity failures).
+  max_error_rate: 0.01
+  min_timestamp: "1997-01-01"   # MovieLens went live in 1997
+  rating_values: [1, 2, 3, 4, 5]
+  age_codes: [1, 18, 25, 35, 45, 50, 56]
+  occupation_range: [0, 20]
+  genders: [M, F]
+  genres: [Action, Adventure, Animation, "Children's", Comedy, Crime,
+           Documentary, Drama, Fantasy, Film-Noir, Horror, Musical, Mystery,
+           Romance, Sci-Fi, Thriller, War, Western]
+  expected_rows:                 # volume sanity check (warning only)
+    users: [5000, 10000]
+    movies: [3000, 5000]
+    ratings: [900000, 1100000]
+
+preparation:
+  duplicate_policy: keep_latest  # for repeated (user, movie) ratings
+
+split:
+  strategy: global_time          # one global cut-off -> no future leakage
+  val_fraction: 0.10             # last 20% of interactions by time are held out:
+  test_fraction: 0.10            # 10% validation (tuning) + 10% test (final)
+
+features:
+  bayesian_prior_count: 25       # m in the Bayesian (damped) average rating
+  recency_half_life_days: 30
+  trend_window_days: 30
+
+training:
+  popularity:
+    window_days: null            # null = all training history
+  # Defaults below are the values the tuning step selected; they are used as-is
+  # when tuning.enabled is false (faster runs).
+  explicit_mf:                   # biased matrix factorisation (rating predictor)
+    reg_mode: weighted           # ALS-WR: lambda x n_ratings of the row; "unweighted" = plain ridge
+    factors: 64
+    reg: 0.1
+    iterations: 15
+  item_knn:                      # item-based CF, shrunk cosine on co-ratings
+    shrink: 200.0
+    neighbours: 500
+  implicit_als:                  # Hu, Koren & Volinsky (2008) implicit-feedback ALS
+    factors: 8
+    reg: 500.0
+    alpha: 3.0
+    iterations: 15
+    solver: cg
+    cg_steps: 3
+  hybrid:                        # ALS score + content (genre) match + popularity
+    w_cf: 1.0
+    w_content: 0.4
+    w_pop: 0.5
+  tuning:
+    enabled: true                # grid-search on the validation window
+    metric: ndcg@10              # selection metric for ranking models (explicit MF: RMSE)
+    implicit_als_grid:           # two-stage search (see training/train.py::_tune_als)
+      stage1_factors: 32         # stage 1: reg x alpha at this size
+      reg: [250.0, 500.0, 1000.0]
+      alpha: [1.0, 3.0, 10.0]
+      factors: [4, 8, 16, 32, 64]  # stage 2: size at the best reg/alpha
+      size_tolerance: 0.02       # keep the smallest size within 2% of the best score
+    explicit_mf_grid:            # selected by validation RMSE
+      reg_mode: [weighted]
+      factors: [32, 64, 128]
+      reg: [0.05, 0.1, 0.2]
+    explicit_mf_extra_trials:    # reference point: best plain-ridge setting found offline
+      - {reg_mode: unweighted, factors: 32, reg: 20.0}
+    item_knn_grid:
+      shrink: [50.0, 100.0, 200.0, 500.0, 1000.0]
+      neighbours: [200, 500, 1000, 2000]
+    hybrid_grid:
+      w_content: [0.0, 0.1, 0.2, 0.4, 0.8, 1.6]
+      w_pop: [0.0, 0.25, 0.5, 1.0, 2.0]
+
+evaluation:
+  k: 10
+  k_values: [5, 10]
+  relevance_threshold: 4         # a held-out rating >= 4 counts as relevant
+  n_sample_recommendations: 5
+
+mlflow:
+  tracking_uri: sqlite:///mlruns/mlflow.db
+  artifact_location: mlruns/artifacts
+  experiment_name: dm4ml-recsys-movielens1m

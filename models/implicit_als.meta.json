@@ -1,0 +1,17 @@
+{
+  "model": "implicit_als",
+  "path": "models/implicit_als.pkl",
+  "mlflow_run_id": "bb4bf8f7462647b2a4892a50c5418472",
+  "params": {
+    "factors": 8,
+    "reg": 500.0,
+    "alpha": 3.0,
+    "iterations": 15,
+    "seed": 42,
+    "solver": "cg",
+    "cg_steps": 3,
+    "confidence": "1 + alpha * rating"
+  },
+  "diagnostics": {},
+  "fit_seconds": 5.27
+}

@@ -1,0 +1,10 @@
+{
+  "heldout_rows": 100024,
+  "heldout_users": 1134,
+  "cold_start_users": 611,
+  "rows_on_cold_items": 17,
+  "eval_users": 492,
+  "candidate_items": 3662,
+  "mean_relevant_per_user": 25.715447154471544,
+  "rating_pairs": 23844
+}

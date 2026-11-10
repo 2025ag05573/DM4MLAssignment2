@@ -1,0 +1,23 @@
+{
+  "users": {
+    "rows": 6040,
+    "missing_imputed": {
+      "gender": 0,
+      "age_group": 0,
+      "occupation": 0,
+      "zip5": 15
+    },
+    "zip_plus4_truncated": 66,
+    "zip_invalid_set_unknown": 15
+  },
+  "movies": {
+    "rows": 3883,
+    "titles_reordered_article": 898,
+    "movies_without_genre": 0,
+    "missing_release_year": 0
+  },
+  "ratings": {
+    "rows": 1000209,
+    "duplicates_removed": 0
+  }
+}
